@@ -1,0 +1,352 @@
+fileFormatVersion: 2
+guid: 3b4e35f113d821244887bb59e2e85318
+timeCreated: 1433079337
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: misc-8_0
+    21300002: misc-8_1
+    21300004: misc-8_2
+    21300006: misc-8_4
+    21300008: misc-8_5
+    21300010: misc-8_6
+    21300012: misc-8_8
+    21300014: misc-8_9
+    21300016: misc-8_10
+    21300018: misc-8_11
+    21300020: misc-8_12
+    21300022: misc-8_13
+    21300024: misc-8_14
+    21300026: misc-8_15
+    21300028: misc-8_16
+    21300030: misc-8_17
+    21300032: misc-8_18
+    21300034: misc-8_19
+    21300036: misc-8_20
+    21300038: misc-8_21
+    21300040: misc-8_22
+    21300042: misc-8_23
+    21300044: misc-8_24
+    21300046: misc-8_25
+    21300048: misc-8_26
+    21300050: misc-8_27
+    21300052: misc-8_28
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: misc-8_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 83
+        width: 43
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_1
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 83
+        width: 45
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_2
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 82
+        width: 43
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_4
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 93
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_5
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 92
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_6
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 92
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_8
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 45
+        width: 40
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_9
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 42
+        width: 46
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_10
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 42
+        width: 40
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_11
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 66
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_12
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 66
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_13
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 67
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_14
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 61
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_15
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 61
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_16
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 35
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_17
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 36
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_18
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 34
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_19
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 37
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_20
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 37
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_21
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 5
+        width: 43
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_22
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 6
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_23
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 0
+        width: 47
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_24
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 8
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_25
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 6
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_26
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 11
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_27
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 13
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: misc-8_28
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 8
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
