@@ -5,13 +5,14 @@ using System.Collections;
 public class JumpmanControls : MonoBehaviour {
 
     // WHY CHANGE RIGIDBODY
-    new Rigidbody2D rb2d;
+    Rigidbody2D rb2d;
 
     private Animator animator = null;
     private GameObject spriteContainer = null;
     private Transform groundCheck = null;
 
     // Animation states
+    private bool onGround = false;
     private bool hasHammer = false;
     private bool onLadder = false;
     private bool jump = false;
@@ -33,6 +34,65 @@ public class JumpmanControls : MonoBehaviour {
         OrientCharacter(this.direction);
         Walk(this.direction);
         Jump(this.direction);
+    }
+
+    void Update()
+    {
+        ProcessInput();
+        CheckGround();
+        CheckLadder();
+    }
+
+    private void ProcessInput()
+    {
+        ProcessWalking();
+        ProcessJump();
+        ProcessClimbing();
+    }
+
+    // NOTE: Only when groundcheck is true
+    private void ProcessWalking()
+    {
+        this.direction = Vector2.zero;
+        if (onGround == true)
+        {
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                this.direction += new Vector2(-1, 0);
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                this.direction += new Vector2(1, 0);
+            }
+        }
+    }
+
+    // NOTE: Only when groundcheck is true
+    private void ProcessJump()
+    {
+        // Only be able to jump while groundcheck is true
+        if (Input.GetKeyDown(KeyCode.Space) && onGround == true)
+        {
+            this.direction.y = 1;
+        }
+    }
+
+    // Note: Check ladder is true
+    private void ProcessClimbing()
+    {
+        // Only be able to climb while on ladder
+        this.direction = Vector2.zero;
+        if (onLadder == true)
+        {
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                this.direction += new Vector2(0, 1);
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                this.direction += new Vector2(0, -1);
+            }
+        }
     }
 
     private void OrientCharacter(Vector2 direction)
@@ -66,6 +126,23 @@ public class JumpmanControls : MonoBehaviour {
 
     private void Jump(Vector2 direction)
     {
-        
+        if (direction.y > 0)
+        {
+            this.rb2d.AddForce(Vector2.up * this.jumpForce);
+            direction.y = 0;
+            // TODO: Animator settings
+            // this.animator.settrigger("Jumping");
+        }
+    }
+
+    private void Climb(Vector2 direction)
+    {
+
+    }
+
+    private void CheckGround()
+    {
+        Collider2D collider = Physics2D.OverlapPoint(this.groundCheck.transform.position);
+        this.onGround = (collider != null);
     }
 }
