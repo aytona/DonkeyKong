@@ -8,7 +8,7 @@ public class JumpmanControls : MonoBehaviour {
     [SerializeField]private GameObject spriteContainer = null;
     
     private Vector2 direction = Vector2.zero;
-    private float walkForce = 10f;
+    private float walkForce = 5f;
     private float maxWalkSpeed = 4f;
 
     void Awake()
@@ -39,7 +39,7 @@ public class JumpmanControls : MonoBehaviour {
         {
             this.direction += new Vector2(-1, 0);
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
             this.direction += new Vector2(1, 0);
         }
@@ -69,12 +69,11 @@ public class JumpmanControls : MonoBehaviour {
         float horizontalSpeed = Mathf.Abs(this.rb2d.velocity.x);
         if (Mathf.Abs(horizontalSpeed) > this.maxWalkSpeed)
         {
-
             Vector2 newVelocity = this.rb2d.velocity;
             float multiplier = (this.rb2d.velocity.x > 0) ? 1 : -1;
             newVelocity.x = multiplier * maxWalkSpeed;
             this.rb2d.velocity = newVelocity;
         }
-        this.animator.SetTrigger("Walking");
+        this.animator.SetBool("Walking", true);
     }
 }
