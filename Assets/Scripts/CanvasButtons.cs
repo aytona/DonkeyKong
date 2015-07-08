@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CanvasButtons : MonoBehaviour {
 	public void StartGame() {
-		Application.LoadLevel ("Level1");
+		Application.LoadLevel ("Intro");
 	}
 
 	public void MainMenu() {
