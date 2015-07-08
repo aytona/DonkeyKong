@@ -173,7 +173,7 @@ public class DKIntroKeyEvents : MonoBehaviour {
 
     void nextScene()
     {
-        Application.LoadLevel("Level1");
+        Application.LoadLevel("DKStack");
     }
 
 }
