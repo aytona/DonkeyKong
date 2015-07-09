@@ -8,8 +8,8 @@ public class JumpmanControls : MonoBehaviour {
     [SerializeField]private GameObject spriteContainer = null;
     
     private Vector2 direction = Vector2.zero;
-    private float walkForce = 5f;
-    private float maxWalkSpeed = 4f;
+    private float walkForce = 8f;
+    private float maxWalkSpeed = 3f;
 
     void Awake()
     {
@@ -19,6 +19,7 @@ public class JumpmanControls : MonoBehaviour {
     void FixedUpdate()
     {
         Walk(this.direction);
+        OrientCharacter(this.direction);
     }
 
     void Update()
@@ -52,12 +53,12 @@ public class JumpmanControls : MonoBehaviour {
         // Movement direction towards the right
         if (direction.x > 0)
         {
-            spriteScale.x = 3;
+            spriteScale.x = -3;
         }
         // Movement direction towards the left
         else if (direction.x < 0)
         {
-            spriteScale.x = -3;
+            spriteScale.x = 3;
         }
         this.spriteContainer.transform.localScale = spriteScale;
     }
@@ -74,6 +75,6 @@ public class JumpmanControls : MonoBehaviour {
             newVelocity.x = multiplier * maxWalkSpeed;
             this.rb2d.velocity = newVelocity;
         }
-        this.animator.SetBool("Walking", true);
+        this.animator.SetFloat("HorizontalSpeed", horizontalSpeed);
     }
 }
