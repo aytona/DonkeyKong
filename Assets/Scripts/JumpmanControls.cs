@@ -6,30 +6,42 @@ public class JumpmanControls : MonoBehaviour {
     Rigidbody2D rb2d;
     [SerializeField]private Animator animator = null;
     [SerializeField]private GameObject spriteContainer = null;
+    [SerializeField]private Transform groundCheck = null;
     
     private Vector2 direction = Vector2.zero;
     private float walkForce = 8f;
     private float maxWalkSpeed = 3f;
+    private float jumpForce = 50f;
+    private bool isOnGround = false;
 
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
     }
 
+    // Physics based update
     void FixedUpdate()
     {
         Walk(this.direction);
         OrientCharacter(this.direction);
+        Jump(this.direction);
     }
 
     void Update()
     {
         ProcessInput();
+        CheckGround();
+        if (isOnGround == true)
+        {
+            this.animator.SetBool("onGround", true);
+        }
     }
 
+    // Processes the different types of inputs available
     private void ProcessInput()
     {
         ProcessWalking();
+        ProcessJump();
     }
 
     // Changes the x vector depending on the keys pressed
@@ -43,6 +55,15 @@ public class JumpmanControls : MonoBehaviour {
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             this.direction += new Vector2(1, 0);
+        }
+    }
+
+    // Pushes the player upwards on the y-axis
+    private void ProcessJump()
+    {
+        if (Input.GetKey(KeyCode.Space) && isOnGround == true)
+        {
+            this.direction.y = 1;
         }
     }
 
@@ -76,5 +97,23 @@ public class JumpmanControls : MonoBehaviour {
             this.rb2d.velocity = newVelocity;
         }
         this.animator.SetFloat("HorizontalSpeed", horizontalSpeed);
+    }
+
+    // Jumping function
+    private void Jump(Vector2 direction)
+    {
+        if (direction.y > 0)
+        {
+            this.rb2d.AddForce(Vector2.up * this.jumpForce);
+            direction.y = 0;
+            this.animator.SetBool("onGround", false);
+        }
+    }
+
+    // Checks if the player is in contact with the ground
+    private void CheckGround()
+    {
+        Collider2D collider = Physics2D.OverlapPoint(this.groundCheck.transform.position);
+        this.isOnGround = (collider != null);
     }
 }
