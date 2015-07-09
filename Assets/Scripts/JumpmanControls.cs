@@ -7,12 +7,14 @@ public class JumpmanControls : MonoBehaviour {
     [SerializeField]private Animator animator = null;
     [SerializeField]private GameObject spriteContainer = null;
     [SerializeField]private Transform groundCheck = null;
+    [SerializeField]private Collider2D hammerCollider = null;
     
     private Vector2 direction = Vector2.zero;
     private float walkForce = 8f;
     private float maxWalkSpeed = 3f;
     private float jumpForce = 50f;
     private bool isOnGround = false;
+    private bool hammerTime = false;
 
     void Awake()
     {
@@ -34,6 +36,14 @@ public class JumpmanControls : MonoBehaviour {
         if (isOnGround == true)
         {
             this.animator.SetBool("onGround", true);
+        }
+        if (hammerTime == true)
+        {
+            this.animator.SetBool("hammerTime", true);
+        }
+        else if (hammerTime == false)
+        {
+            this.animator.SetBool("hammerTime", false);
         }
     }
 
@@ -61,7 +71,7 @@ public class JumpmanControls : MonoBehaviour {
     // Pushes the player upwards on the y-axis
     private void ProcessJump()
     {
-        if (Input.GetKey(KeyCode.Space) && isOnGround == true)
+        if (Input.GetKey(KeyCode.Space) && isOnGround == true && hammerTime == false)
         {
             this.direction.y = 1;
         }
@@ -115,5 +125,26 @@ public class JumpmanControls : MonoBehaviour {
     {
         Collider2D collider = Physics2D.OverlapPoint(this.groundCheck.transform.position);
         this.isOnGround = (collider != null);
+    }
+
+    // Colliders
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Hammer")
+        {
+            Destroy(other.gameObject);
+            hammerTime = true;
+            StartCoroutine(hammerTimer());
+        }
+        if (hammerTime == true && other.gameObject.tag == "Enemy")
+        {
+            Destroy(other.gameObject);
+        }
+    }
+
+    private IEnumerator hammerTimer()
+    {
+        yield return new WaitForSeconds(5);
+        hammerTime = false;
     }
 }
