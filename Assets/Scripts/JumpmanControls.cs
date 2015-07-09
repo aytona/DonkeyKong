@@ -7,7 +7,6 @@ public class JumpmanControls : MonoBehaviour {
     [SerializeField]private Animator animator = null;
     [SerializeField]private GameObject spriteContainer = null;
     [SerializeField]private Transform groundCheck = null;
-    [SerializeField]private Collider2D hammerCollider = null;
     
     private Vector2 direction = Vector2.zero;
     private float walkForce = 8f;
@@ -142,6 +141,7 @@ public class JumpmanControls : MonoBehaviour {
         }
     }
 
+    // Hammer Timer
     private IEnumerator hammerTimer()
     {
         yield return new WaitForSeconds(5);

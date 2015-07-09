@@ -49,8 +49,10 @@
      <Compile Include="Assets\Scripts\CanvasButtons.cs" />
      <Compile Include="Assets\Scripts\DKIntroKeyEvents.cs" />
      <Compile Include="Assets\Scripts\DKStackWait.cs" />
+     <Compile Include="Assets\Scripts\DKThrow.cs" />
      <Compile Include="Assets\Scripts\HUD.cs" />
      <Compile Include="Assets\Scripts\JumpmanControls.cs" />
+     <Compile Include="Assets\Scripts\OilBarrel.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
