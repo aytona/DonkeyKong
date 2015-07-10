@@ -1,12 +1,9 @@
 fileFormatVersion: 2
-guid: 45ba93aa039565744a94c7d910d92fb2
-timeCreated: 1436486929
+guid: 702d223c6d11f914393301f565ffe2e6
+timeCreated: 1436486724
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Walking_0
-    21300002: Walking_1
-    21300004: Walking_2
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -40,10 +37,10 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 8
+  alignment: 7
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
@@ -51,37 +48,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: Walking_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 12
-        height: 16
-      alignment: 7
-      pivot: {x: .5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Walking_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 15
-        height: 16
-      alignment: 7
-      pivot: {x: .5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Walking_2
-      rect:
-        serializedVersion: 2
-        x: 36
-        y: 1
-        width: 15
-        height: 15
-      alignment: 7
-      pivot: {x: .5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

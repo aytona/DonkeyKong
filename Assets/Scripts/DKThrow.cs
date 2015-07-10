@@ -3,16 +3,11 @@ using System.Collections;
 
 public class DKThrow : MonoBehaviour {
 
-    [SerializeField]
-    private Transform normalBarrelSpawn = null;
-    [SerializeField]
-    private Transform specialBarrelSpawn = null;
-    [SerializeField]
-    private GameObject specialBarrel = null;
-    [SerializeField]
-    private GameObject normalBarrel = null;
-    [SerializeField]
-    private Animator animator = null;
+    [SerializeField]private Transform normalBarrelSpawn = null;
+    [SerializeField]private Transform specialBarrelSpawn = null;
+    [SerializeField]private GameObject specialBarrel = null;
+    [SerializeField]private GameObject normalBarrel = null;
+    [SerializeField]private Animator animator = null;
 
     private int numGen = 0;
 
@@ -29,11 +24,11 @@ public class DKThrow : MonoBehaviour {
         {
             this.animator.SetTrigger("DKPound");
         }
-        else if (numGen >= 41 && numGen <= 89)
+        else if (numGen >= 41 && numGen <= 97)
         {
             this.animator.SetTrigger("DKThrow");
         }
-        else if (numGen >= 90 && numGen <= 100)
+        else if (numGen >= 98 && numGen <= 100)
         {
             this.animator.SetTrigger("DKBlue");
         }
