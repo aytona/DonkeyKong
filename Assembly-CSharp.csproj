@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\HUD.cs" />
      <Compile Include="Assets\Scripts\JumpmanControls.cs" />
      <Compile Include="Assets\Scripts\OilBarrel.cs" />
+     <Compile Include="Assets\Scripts\PlayerData.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
