@@ -20,6 +20,8 @@ public class DKThrow : MonoBehaviour {
     void Start()
     {
         barrelList.Add(barrel1);
+        barrelList.Add(barrel2);
+        barrelList.Add(barrel3);
         this.animator.SetTrigger("DKBlue");
     }
 
@@ -48,7 +50,7 @@ public class DKThrow : MonoBehaviour {
     // Instantiate barrel at the END of normal throw anim
     void normalThrow()
     {
-        int barrelIndex = UnityEngine.Random.Range(0, barrelList.Count - 1);
+        int barrelIndex = UnityEngine.Random.Range(0, barrelList.Count);
         Instantiate(barrelList[barrelIndex]);
     }
 
