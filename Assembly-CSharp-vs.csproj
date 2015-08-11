@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\DKStackWait.cs" />
      <Compile Include="Assets\Scripts\DKThrow.cs" />
      <Compile Include="Assets\Scripts\HUD.cs" />
+     <Compile Include="Assets\Scripts\IntroAudio.cs" />
      <Compile Include="Assets\Scripts\JumpmanControls.cs" />
      <Compile Include="Assets\Scripts\OilBarrel.cs" />
      <Compile Include="Assets\Scripts\PlayerData.cs" />
