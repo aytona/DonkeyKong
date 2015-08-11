@@ -1,18 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DKThrow : MonoBehaviour {
 
-    [SerializeField]private Transform normalBarrelSpawn = null;
+    List<GameObject> barrelList = new List<GameObject>();
+
     [SerializeField]private Transform specialBarrelSpawn = null;
     [SerializeField]private GameObject specialBarrel = null;
-    [SerializeField]private GameObject normalBarrel = null;
     [SerializeField]private Animator animator = null;
+
+    public GameObject barrel1;
+    public GameObject barrel2;
+    public GameObject barrel3;
+    public GameObject barrel4;
 
     private int numGen = 0;
 
     void Start()
     {
+        barrelList.Add(barrel1);
         this.animator.SetTrigger("DKBlue");
     }
 
@@ -41,8 +48,8 @@ public class DKThrow : MonoBehaviour {
     // Instantiate barrel at the END of normal throw anim
     void normalThrow()
     {
-        GameObject normalBarrel = Object.Instantiate(this.normalBarrel) as GameObject;
-        normalBarrel.transform.position = this.normalBarrelSpawn.transform.position;
+        int barrelIndex = UnityEngine.Random.Range(0, barrelList.Count - 1);
+        Instantiate(barrelList[barrelIndex]);
     }
 
     // Instantiate barrel at the END of special throw anim
