@@ -3,167 +3,89 @@ using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class JumpmanControls : MonoBehaviour {
+
     Rigidbody2D rb2d;
     [SerializeField]private Animator animator = null;
-    [SerializeField]private GameObject spriteContainer = null;
+    // [SerializeField]private GameObject spriteContainer = null;
     [SerializeField]private Transform groundCheck = null;
-    //[SerializeField]private Transform ladderCheck = null;
     
-    private Vector2 direction = Vector2.zero;
-    private float walkForce = 8f;
-    private float maxWalkSpeed = 3f;
-    private float jumpForce = 50f;
-    private float climbForce = 4f;
-    private float maxClimbSpeed = 2f;
-    private bool isOnGround = false;
-    private bool hammerTime = false;
-    private bool isOnLadder = false;
+    private bool isOnGround = false;                    // Feet touching the ground
+    private bool hammerTime = false;                    // Hammer picked up
+    private bool isOnLadder = false;                    // On a ladder trigger
+    private bool standing;                              // Mario's speed is 0
+    private float speed = 10f;                          // Mario's walking speed
+    private float climbSpeed = 5f;                      // Mario's climbing speed
+    private Vector2 maxVelocity = new Vector2(3, 5);    // Max walking and climbing speed
+    private Controller controller;                      // Input detector script
 
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
-    }
-
-    // Physics based update
-    void FixedUpdate()
-    {
-        Walk(this.direction);
-        OrientCharacter(this.direction);
-        Jump(this.direction);
-        if (isOnLadder == true)
-        {
-            Climb(this.direction);
-        }
+        controller = GetComponent<Controller>();
     }
 
     void Update()
     {
-        ProcessInput();
         CheckGround();
-        if (isOnGround == true)
-        {
-            this.animator.SetBool("onGround", true);
-        }
-        if (hammerTime == true)
-        {
-            this.animator.SetBool("hammerTime", true);
-        }
-        else if (hammerTime == false)
-        {
-            this.animator.SetBool("hammerTime", false);
-        }
-    }
 
-    // Processes the different types of inputs available
-    private void ProcessInput()
-    {
-        ProcessWalking();
-        ProcessJump();
-        if (isOnLadder == true)
-        {
-            ProcessClimb();
-            //this.rb2d.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
-        }
-        //else if (isOnLadder == false)
-        //{
-        //    this.rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
-        //}
-    }
+        var forceX = 0f;
+        var forceY = 0f;
 
-    // Changes the x vector depending on the keys pressed
-    private void ProcessWalking()
-    {
-        this.direction = Vector2.zero;
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            this.direction += new Vector2(-1, 0);
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            this.direction += new Vector2(1, 0);
-        }
-    }
+        var absVelX = Mathf.Abs(rb2d.velocity.x);
+        var absVelY = Mathf.Abs(rb2d.velocity.y);
 
-    // Pushes the player upwards on the y-axis
-    private void ProcessJump()
-    {
-        if (Input.GetKey(KeyCode.Space) && isOnGround == true && hammerTime == false)
+        if (absVelY < .2f)
         {
-            this.direction.y = 1;
+            standing = true;
         }
-    }
+        else
+        {
+            standing = false;
+        }
 
-    // Player goes up or down the ladder
-    private void ProcessClimb()
-    {
-        if (Input.GetKey(KeyCode.UpArrow) && isOnLadder == true)
+        if (controller.moving.x != 0)
         {
-            this.direction += new Vector2(0, 1);
-            //this.animator.SetTrigger("Climbing");
+            if (absVelX < maxVelocity.x)
+            {
+                forceX = standing ? speed * controller.moving.x : (speed * controller.moving.x);
+                transform.localScale = new Vector3(forceX > 0 ? 1 : -1, 1, 1);
+            }
+            if (hammerTime == false)
+            {
+                this.animator.SetInteger("AnimState", 1);
+            }
+            else if (hammerTime == true)
+            {
+                this.animator.SetInteger("AnimState", 6);
+            }
         }
-        else if (Input.GetKey(KeyCode.DownArrow) && isOnLadder == true)
+        else
         {
-            this.direction += new Vector2(0, -1);
-            //this.animator.SetTrigger("Climbing");
+            if (hammerTime == false)
+            {
+                this.animator.SetInteger("AnimState", 0);
+            }
+            else if (hammerTime == true)
+            {
+                this.animator.SetInteger("AnimState", 5);
+            }
         }
-    }
 
-    // Orients the character to the proper direction they are walking towards to
-    private void OrientCharacter(Vector2 direction)
-    {
-        Vector3 spriteScale = this.spriteContainer.transform.localScale;
-        // Movement direction towards the right
-        if (direction.x > 0)
+        if (controller.moving.y > 0 && isOnLadder == true)
         {
-            spriteScale.x = -3;
+            if (absVelY < maxVelocity.y)
+            {
+                forceY = controller.moving.y * climbSpeed;
+                this.animator.SetInteger("AnimState", 4);
+            }
+            this.animator.SetInteger("AnimState", 3);
         }
-        // Movement direction towards the left
-        else if (direction.x < 0)
+        else if (absVelY > 0 && isOnGround == true)
         {
-            spriteScale.x = 3;
+            this.animator.SetInteger("AnimState", 0);
         }
-        this.spriteContainer.transform.localScale = spriteScale;
-    }
 
-    // Walking function
-    private void Walk(Vector2 direction)
-    {
-        this.rb2d.AddForce(direction * this.walkForce);
-        float horizontalSpeed = Mathf.Abs(this.rb2d.velocity.x);
-        if (Mathf.Abs(horizontalSpeed) > this.maxWalkSpeed)
-        {
-            Vector2 newVelocity = this.rb2d.velocity;
-            float multiplier = (this.rb2d.velocity.x > 0) ? 1 : -1;
-            newVelocity.x = multiplier * maxWalkSpeed;
-            this.rb2d.velocity = newVelocity;
-        }
-        this.animator.SetFloat("HorizontalSpeed", horizontalSpeed);
-    }
-
-    // Climbing function
-    private void Climb(Vector2 direction)
-    {
-        this.rb2d.AddForce(direction * this.climbForce);
-        float verticalSpeed = Mathf.Abs(this.rb2d.velocity.y);
-        if (Mathf.Abs(verticalSpeed) > this.maxClimbSpeed)
-        {
-            Vector2 newVelocity = this.rb2d.velocity;
-            float multiplier = (this.rb2d.velocity.y > 0) ? 1 : -1;
-            newVelocity.y = multiplier * maxClimbSpeed;
-            this.rb2d.velocity = newVelocity;
-        }
-        this.animator.SetFloat("VerticalSpeed", verticalSpeed);
-    }
-
-    // Jumping function
-    private void Jump(Vector2 direction)
-    {
-        if (direction.y > 0)
-        {
-            this.rb2d.AddForce(Vector2.up * this.jumpForce);
-            direction.y = 0;
-            this.animator.SetBool("onGround", false);
-        }
+        rb2d.AddForce(new Vector2(forceX, forceY));
     }
 
     // Checks if the player is in contact with the ground
@@ -172,13 +94,6 @@ public class JumpmanControls : MonoBehaviour {
         Collider2D collider = Physics2D.OverlapPoint(this.groundCheck.transform.position);
         this.isOnGround = (collider != null);
     }
-    
-    // Check if the player is in contact with the ladder
-    //private void CheckLadder()
-    //{
-    //    Collider2D collider = Physics2D.OverlapPoint(this.ladderCheck.transform.position);
-    //    this.isOnLadder = (gameObject.tag == "Ladder");
-    //}
 
     // Colliders
     void OnTriggerEnter2D(Collider2D other)
@@ -191,9 +106,10 @@ public class JumpmanControls : MonoBehaviour {
         }
         if (hammerTime == true && other.gameObject.tag == "Enemy")
         {
+            PlayerData.Instance.Score += 100;
             Destroy(other.gameObject);
         }
-        if (other.gameObject.tag == "WinLadder" && Input.GetKeyDown(KeyCode.UpArrow))
+        if (other.gameObject.tag == "WinLadder" && Input.GetKey(KeyCode.UpArrow))
         {
             this.animator.SetTrigger("WinTrigger");
         }
@@ -201,10 +117,10 @@ public class JumpmanControls : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Ladder")
+        if (other.gameObject.tag == "Ladder" && controller.moving.y > 0)
         {
             isOnLadder = true;
-            this.animator.SetBool("onLadder", true);
+            this.animator.SetInteger("AnimState", 3);
         }
     }
 
@@ -213,7 +129,7 @@ public class JumpmanControls : MonoBehaviour {
         if (other.gameObject.tag == "Ladder")
         {
             isOnLadder = false;
-            this.animator.SetBool("onLadder", false);
+            this.animator.SetInteger("AnimState", 0);
         }
         if (other.gameObject.tag == "Score")
         {
