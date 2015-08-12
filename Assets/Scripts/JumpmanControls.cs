@@ -193,6 +193,10 @@ public class JumpmanControls : MonoBehaviour {
         {
             Destroy(other.gameObject);
         }
+        if (other.gameObject.tag == "WinLadder" && Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            this.animator.SetTrigger("WinTrigger");
+        }
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -216,6 +220,11 @@ public class JumpmanControls : MonoBehaviour {
             PlayerData.Instance.Score += 100;
             Destroy(other.gameObject);
         }
+    }
+
+    void winTransition()
+    {
+        Application.LoadLevel("Win");
     }
 
     // Hammer Timer
