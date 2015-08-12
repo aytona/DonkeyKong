@@ -211,6 +211,11 @@ public class JumpmanControls : MonoBehaviour {
             isOnLadder = false;
             this.animator.SetBool("onLadder", false);
         }
+        if (other.gameObject.tag == "Score")
+        {
+            PlayerData.Instance.Score += 100;
+            Destroy(other.gameObject);
+        }
     }
 
     // Hammer Timer
