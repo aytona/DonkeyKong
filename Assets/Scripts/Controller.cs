@@ -9,19 +9,19 @@ public class Controller : MonoBehaviour {
     {
         moving.x = moving.y = 0;
 
-        if (Input.GetKey("right"))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             moving.x = 1;
         }
-        else if (Input.GetKey("left"))
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             moving.x = -1;
         }
-        if (Input.GetKey("up"))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             moving.y = 1;
         }
-        else if (Input.GetKey("down"))
+        else if (Input.GetKey(KeyCode.DownArrow))
         {
             moving.y = -1;
         }

@@ -5,23 +5,26 @@ using System.Collections;
 public class JumpmanControls : MonoBehaviour {
 
     Rigidbody2D rb2d;
-    [SerializeField]private Animator animator = null;
-    // [SerializeField]private GameObject spriteContainer = null;
     [SerializeField]private Transform groundCheck = null;
     
-    private bool isOnGround = false;                    // Feet touching the ground
-    private bool hammerTime = false;                    // Hammer picked up
-    private bool isOnLadder = false;                    // On a ladder trigger
-    private bool standing;                              // Mario's speed is 0
-    private float speed = 10f;                          // Mario's walking speed
-    private float climbSpeed = 5f;                      // Mario's climbing speed
-    private Vector2 maxVelocity = new Vector2(3, 5);    // Max walking and climbing speed
-    private Controller controller;                      // Input detector script
+    public bool isOnGround = false;                         // Feet touching the ground
+    public bool hammerTime = false;                         // Hammer picked up
+    public bool isOnLadder = false;                         // On a ladder trigger
+    public int lives = 3;
+
+    private bool standing;                                  // Mario's speed is 0
+    private float jumpForce = 5f;                           // Mario's jump height
+    private float speed = 10f;                              // Mario's walking speed
+    private float climbSpeed = 5f;                          // Mario's climbing speed
+    private Vector2 maxVelocity = new Vector2(3, 5);        // Max walking and climbing speed
+    private Controller controller;                          // Input detector script
+    private Animator animator;                              // Mario's animator
 
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         controller = GetComponent<Controller>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -43,12 +46,13 @@ public class JumpmanControls : MonoBehaviour {
             standing = false;
         }
 
+        // Moving Left or Right
         if (controller.moving.x != 0)
         {
             if (absVelX < maxVelocity.x)
             {
                 forceX = standing ? speed * controller.moving.x : (speed * controller.moving.x);
-                transform.localScale = new Vector3(forceX > 0 ? 1 : -1, 1, 1);
+                transform.localScale = new Vector3(forceX > 0 ? -3 : 3, 3, 1);
             }
             if (hammerTime == false)
             {
@@ -59,6 +63,7 @@ public class JumpmanControls : MonoBehaviour {
                 this.animator.SetInteger("AnimState", 6);
             }
         }
+        // Standing
         else
         {
             if (hammerTime == false)
@@ -70,7 +75,7 @@ public class JumpmanControls : MonoBehaviour {
                 this.animator.SetInteger("AnimState", 5);
             }
         }
-
+        // Moving Up or Down, Only if Mario is on a ladder trigger
         if (controller.moving.y > 0 && isOnLadder == true)
         {
             if (absVelY < maxVelocity.y)
@@ -83,6 +88,12 @@ public class JumpmanControls : MonoBehaviour {
         else if (absVelY > 0 && isOnGround == true)
         {
             this.animator.SetInteger("AnimState", 0);
+        }
+        // Jumping only if Mario is on the ground
+        if (isOnGround == true && Input.GetKeyDown(KeyCode.Space))
+        {
+            this.rb2d.AddForce(Vector2.up * jumpForce);
+            this.animator.SetInteger("AnimState", 2);
         }
 
         rb2d.AddForce(new Vector2(forceX, forceY));
@@ -109,6 +120,10 @@ public class JumpmanControls : MonoBehaviour {
             PlayerData.Instance.Score += 100;
             Destroy(other.gameObject);
         }
+        else if (hammerTime == false && other.gameObject.tag == "Enemy")
+        {
+            this.animator.SetTrigger("DeathTrigger");
+        }
         if (other.gameObject.tag == "WinLadder" && Input.GetKey(KeyCode.UpArrow))
         {
             this.animator.SetTrigger("WinTrigger");
@@ -117,10 +132,13 @@ public class JumpmanControls : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Ladder" && controller.moving.y > 0)
+        if (other.gameObject.tag == "Ladder")
         {
             isOnLadder = true;
-            this.animator.SetInteger("AnimState", 3);
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+            {
+                this.animator.SetInteger("AnimState", 3);
+            }
         }
     }
 
@@ -138,9 +156,21 @@ public class JumpmanControls : MonoBehaviour {
         }
     }
 
-    void winTransition()
+    void WinTransition()
     {
         Application.LoadLevel("Win");
+    }
+
+    void LoseTransition()
+    {
+        if (PlayerData.Instance.Lives > 0)
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+        else if (PlayerData.Instance.Lives == 0)
+        {
+            Application.LoadLevel("Lose");
+        }
     }
 
     // Hammer Timer
