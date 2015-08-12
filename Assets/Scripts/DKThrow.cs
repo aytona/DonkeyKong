@@ -14,6 +14,7 @@ public class DKThrow : MonoBehaviour {
     public GameObject barrel2;
     public GameObject barrel3;
     public GameObject barrel4;
+    public GameObject barrel5;
 
     private int numGen = 0;
 
@@ -22,6 +23,8 @@ public class DKThrow : MonoBehaviour {
         barrelList.Add(barrel1);
         barrelList.Add(barrel2);
         barrelList.Add(barrel3);
+        barrelList.Add(barrel4);
+        barrelList.Add(barrel5);
         this.animator.SetTrigger("DKBlue");
     }
 
