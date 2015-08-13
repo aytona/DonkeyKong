@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Rigidbody2D))]
 public class JumpmanControls : MonoBehaviour {
 
-    Rigidbody2D rb2d;
+    private Rigidbody2D rb2d;
     [SerializeField]private Transform groundCheck = null;
     
     public bool isOnGround = false;                         // Feet touching the ground
@@ -59,19 +59,11 @@ public class JumpmanControls : MonoBehaviour {
             if (absVelX < maxVelocity.x)
             {
                 forceX = standing ? speed * controller.moving.x : (speed * controller.moving.x);
-                transform.localScale = new Vector3(forceX > 0 ? -3 : 3, 3, 1);
-            }
-            if (hammerTime == false)
-            {
-                this.animator.SetInteger("AnimState", 1);
-            }
-            else if (hammerTime == true)
-            {
-                this.animator.SetInteger("AnimState", 6);
+                transform.localScale = new Vector3(forceX > 0 ? -3 : 3, 3, 0);
             }
         }
         // Standing
-        else
+        else if (controller.moving.x == 0)
         {
             if (hammerTime == false)
             {
@@ -99,7 +91,7 @@ public class JumpmanControls : MonoBehaviour {
         // Jumping only if Mario is on the ground
         if (isOnGround == true && Input.GetKeyDown(KeyCode.Space))
         {
-            this.rb2d.AddForce(Vector2.up * jumpForce);
+            rb2d.AddForce(Vector2.up * jumpForce);
             this.animator.SetInteger("AnimState", 2);
             PlaySound(this.jumpClip);
         }
@@ -107,6 +99,14 @@ public class JumpmanControls : MonoBehaviour {
         if (isOnGround == true && (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)))
         {
             PlaySound(this.walkingClip);
+            if (hammerTime == false)
+            {
+                this.animator.SetInteger("AnimState", 1);
+            }
+            else if (hammerTime == true)
+            {
+                this.animator.SetInteger("AnimState", 6);
+            }
         }
 
         rb2d.AddForce(new Vector2(forceX, forceY));

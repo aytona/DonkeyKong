@@ -45,6 +45,10 @@ public class HUD : MonoBehaviour {
             firstLife.SetActive(true);
             secondLife.SetActive(true);
         }
+        if (PlayerData.Instance.BonusScore == 0)
+        {
+            PlayerData.Instance.Lives--;
+        }
 
         this.score.text = PlayerData.Instance.Score.ToString();
         this.highScore.text = PlayerData.Instance.HighScore.ToString();

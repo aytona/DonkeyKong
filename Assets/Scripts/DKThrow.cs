@@ -55,6 +55,7 @@ public class DKThrow : MonoBehaviour {
     {
         int barrelIndex = UnityEngine.Random.Range(0, barrelList.Count);
         Instantiate(barrelList[barrelIndex]);
+        PlayerData.Instance.BonusScore -= 100;
     }
 
     // Instantiate barrel at the END of special throw anim
@@ -62,5 +63,6 @@ public class DKThrow : MonoBehaviour {
     {
         GameObject specialBarrel = Object.Instantiate(this.specialBarrel) as GameObject;
         specialBarrel.transform.position = this.specialBarrelSpawn.transform.position;
+        PlayerData.Instance.BonusScore -= 100;
     }
 }
