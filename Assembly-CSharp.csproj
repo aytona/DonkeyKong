@@ -46,12 +46,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\BarrelKeyEvents.cs" />
      <Compile Include="Assets\Scripts\CanvasButtons.cs" />
      <Compile Include="Assets\Scripts\Controller.cs" />
      <Compile Include="Assets\Scripts\DKIntroKeyEvents.cs" />
      <Compile Include="Assets\Scripts\DKStackWait.cs" />
      <Compile Include="Assets\Scripts\DKThrow.cs" />
+     <Compile Include="Assets\Scripts\EnemyKeyEvents.cs" />
      <Compile Include="Assets\Scripts\HUD.cs" />
      <Compile Include="Assets\Scripts\IntroAudio.cs" />
      <Compile Include="Assets\Scripts\JumpmanControls.cs" />

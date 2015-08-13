@@ -2,15 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class BarrelKeyEvents : MonoBehaviour {
+public class EnemyKeyEvents : MonoBehaviour {
 
     List<GameObject> fireList = new List<GameObject>();
 
     public GameObject fire1;
+    public GameObject fire2;
 
     void Start()
     {
         fireList.Add(fire1);
+        fireList.Add(fire2);
     }
 
     void DestroyThis()
