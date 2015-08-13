@@ -7,6 +7,7 @@ public class PlayerData
     private int score = 0;
     private int highScore = 0;
     private int lives = 3;
+    private int bonusScore = 5000;
 
     public static PlayerData Instance
     {
@@ -59,6 +60,18 @@ public class PlayerData
         set
         {
             lives = value;
+        }
+    }
+
+    public int BonusScore
+    {
+        get
+        {
+            return this.bonusScore;
+        }
+        set
+        {
+            bonusScore = value;
         }
     }
 }

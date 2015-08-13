@@ -6,6 +6,7 @@ public class HUD : MonoBehaviour {
 
     public Text score;
     public Text highScore;
+    public Text bonusScore;
     public GameObject firstLife;
     public GameObject secondLife;
 
@@ -47,6 +48,7 @@ public class HUD : MonoBehaviour {
 
         this.score.text = PlayerData.Instance.Score.ToString();
         this.highScore.text = PlayerData.Instance.HighScore.ToString();
+        this.bonusScore.text = PlayerData.Instance.BonusScore.ToString();
 	}
 
     void OnLevelWasLoaded()
@@ -55,6 +57,7 @@ public class HUD : MonoBehaviour {
         {
             PlayerData.Instance.Score = 0;
             PlayerData.Instance.Lives = 3;
+            PlayerData.Instance.BonusScore = 5000;
             Destroy(this.gameObject);
         }
     }

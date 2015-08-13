@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class JumpmanControls : MonoBehaviour {
@@ -10,15 +11,21 @@ public class JumpmanControls : MonoBehaviour {
     public bool isOnGround = false;                         // Feet touching the ground
     public bool hammerTime = false;                         // Hammer picked up
     public bool isOnLadder = false;                         // On a ladder trigger
-    public int lives = 3;
 
-    private bool standing;                                  // Mario's speed is 0
-    private float jumpForce = 5f;                           // Mario's jump height
-    private float speed = 10f;                              // Mario's walking speed
-    private float climbSpeed = 5f;                          // Mario's climbing speed
-    private Vector2 maxVelocity = new Vector2(3, 5);        // Max walking and climbing speed
-    private Controller controller;                          // Input detector script
-    private Animator animator;                              // Mario's animator
+    public AudioClip deathClip;
+    public AudioClip hammerClip;
+    public AudioClip jumpClip;
+    public AudioClip walkingClip;
+
+    private List<AudioSource> sources = new List<AudioSource>();    // List of all audio clips
+    private bool standing;                                          // Mario's speed is 0
+    private float jumpForce = 5f;                                   // Mario's jump height
+    private float speed = 10f;                                      // Mario's walking speed
+    private float climbSpeed = 5f;                                  // Mario's climbing speed
+    private Vector2 maxVelocity = new Vector2(3, 5);                // Max walking and climbing speed
+    private Controller controller;                                  // Input detector script
+    private Animator animator;                                      // Mario's animator
+    private int maxAudioSourceCount = 10;                           // Max number of AudioSources allowed
 
     void Awake()
     {
@@ -94,6 +101,12 @@ public class JumpmanControls : MonoBehaviour {
         {
             this.rb2d.AddForce(Vector2.up * jumpForce);
             this.animator.SetInteger("AnimState", 2);
+            PlaySound(this.jumpClip);
+        }
+        // Play sound clip once
+        if (isOnGround == true && (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)))
+        {
+            PlaySound(this.walkingClip);
         }
 
         rb2d.AddForce(new Vector2(forceX, forceY));
@@ -104,6 +117,14 @@ public class JumpmanControls : MonoBehaviour {
     {
         Collider2D collider = Physics2D.OverlapPoint(this.groundCheck.transform.position);
         this.isOnGround = (collider != null);
+    }
+
+    // Play sound clip from AudioSource
+    private void PlaySound(AudioClip clip)
+    {
+        AudioSource source = GetAudioSource();
+        source.clip = clip;
+        source.Play();
     }
 
     // Colliders
@@ -123,6 +144,7 @@ public class JumpmanControls : MonoBehaviour {
         else if (hammerTime == false && other.gameObject.tag == "Enemy")
         {
             this.animator.SetTrigger("DeathTrigger");
+            PlaySound(this.deathClip);
         }
         if (other.gameObject.tag == "WinLadder" && Input.GetKey(KeyCode.UpArrow))
         {
@@ -156,6 +178,7 @@ public class JumpmanControls : MonoBehaviour {
         }
     }
 
+    // Event Key Triggers
     void WinTransition()
     {
         Application.LoadLevel("Win");
@@ -171,6 +194,48 @@ public class JumpmanControls : MonoBehaviour {
         {
             Application.LoadLevel("Lose");
         }
+    }
+
+    // Audio Source
+    private AudioSource GetAudioSource()
+    {
+        AudioSource source = this.gameObject.GetComponent<AudioSource>();
+        if (source == null)
+        {
+            source = this.gameObject.AddComponent<AudioSource>();
+            this.sources.Add(source);
+        }
+        return source;
+    }
+
+    private AudioSource GetAvailableSource()
+    {
+        if (this.sources == null)
+        {
+            this.sources = new List<AudioSource>();
+        }
+        if (this.sources.Count == 0)
+        {
+            AudioSource firstSource = this.gameObject.AddComponent<AudioSource>();
+            this.sources.Add(firstSource);
+        }
+
+        for (int i = 0; i < this.sources.Count; i++)
+        {
+            AudioSource source = this.sources[i];
+            if (source.isPlaying == false)
+            {
+                return source;
+            }
+        }
+
+        if (this.sources.Count < this.maxAudioSourceCount)
+        {
+            AudioSource newSource = this.gameObject.AddComponent<AudioSource>();
+            this.sources.Add(newSource);
+            return newSource;
+        }
+        return null;
     }
 
     // Hammer Timer
